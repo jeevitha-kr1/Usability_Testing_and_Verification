@@ -20,7 +20,8 @@ const Counter = () => {
     }
 };
 const deleteLogs = (id) => {
-    setLogs(logs.filter((log) => log.id !== id));
+    //Filter out the log with the given id and update the logs state
+    setLogs((prevLogs) => prevLogs.filter((log) => log.id !== id));
 };
  
     const handleCounter = (sign) => {
