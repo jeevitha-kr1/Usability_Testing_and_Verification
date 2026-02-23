@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./counter.css";
 import Logs from "../logs/logs";
  
@@ -8,6 +8,7 @@ const Counter = () => {
     const [decValue, setDecValue] = useState(0);
     const [logs, setLogs] = useState([]);
     const [showLogs, setShowLogs] = useState(false);
+    const logIdRef = useRef(0);
  
     const handleOperation = (e) => {
         const value = +e.target.value;
@@ -20,6 +21,7 @@ const Counter = () => {
     }
 };
 const deleteLogs = (id) => {
+    console.log("Deleting log with id:", id);
     //Filter out the log with the given id and update the logs state
     setLogs((prevLogs) => prevLogs.filter((log) => log.id !== id));
 };
@@ -39,7 +41,7 @@ const deleteLogs = (id) => {
         }
             //Generate a log
             const newLog = {
-                id: Math.random(),
+                id: logIdRef.current++,
                 value: `Previous Value = ${oldValue}, Value ${
                     sign === "+" ? "Added" : "Subtracted"
                 } = ${sign === "+" ? incValue : decValue}, New Value = ${newValue}`,
@@ -87,7 +89,7 @@ const deleteLogs = (id) => {
                 </button>
             </div>
         </div>
-        {logs.length > 1 && (
+        {logs.length >= 1 && (
                 <div className="logs">
                     <button
                         className="button button_info"
