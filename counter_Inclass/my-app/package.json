@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "cypress: open": "cypress open"
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "cypress": "^15.10.0",
