@@ -1,24 +1,25 @@
 import { NavLink, Route, Routes } from "react-router-dom";
 import "./App.css";
-
+ 
 import Home from "./components/Home/Home.jsx";
 import About from "./components/About/About.jsx";
 import Button from "./components/Button/Button.jsx";
 import { useState } from "react";
-
+import Products from "./components/Products/Products.jsx";
+ 
 const App = () => {
-  const [loggedIn, setLogin] = useState(false);
-  const[loading,setloading] = useState(false);
-
-  const handleLogin = () => {
-    setloading(true);
-
-    //dummy api call to show loading state
-    setTimeout(() => {
-      setLogin(!loggedIn);   
-      setloading(false);
-    }, 2000);
-  };
+    const [loggedIn, setLogIn] = useState(false);
+    const [loading, setLoading] = useState(false);
+ 
+    const handleLogin = () => {
+      setLoading(true);
+      //dummy call to handle login which takes 2 seconds to complete
+      setTimeout(() => {
+        setLogIn(!loggedIn);
+        setLoading(false);
+      }, 2000);
+    }
+ 
   return (
     <div data-testid="App" className="App">
       <nav data-testid="main_nav">
@@ -32,22 +33,24 @@ const App = () => {
         <NavLink data-testid="Product_Link" to="/products">
           Products
         </NavLink>
-        <Button 
-        value={loggedIn} 
-        isLoading={loading} 
-        displayTrue={"Logout"}
-        displayFalse={"Login"}
-        handleLogin={handleLogin}
-        />
-
+          <Button
+          value={loggedIn}
+          isLoading={loading}
+          displayTrue={"logout"}
+          displayFalse={"login"}
+          handleLogin={handleLogin}
+          />
       </nav>
-      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        {loggedIn && <Route path="/products"
+        element={<Products isUserLoggedIn={loggedIn} isLoading={loading} />} />}
       </Routes>
     </div>
   );
 };
-
+ 
 export default App;
+ 
+ 
